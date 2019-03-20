@@ -5,12 +5,8 @@ const bcrypt = require("bcryptjs");
 // Load User form models
 const User = require("../../models/users.js");
 
-/* ================================================================== */
-
 // GET api/users/test
 router.get("/test", (req, res) => res.json({ msg: "Users Works" }));
-
-/* ================================================================== */
 
 // POST api/users/register
 router.post("/register", (req, res) => {
@@ -29,12 +25,34 @@ router.post("/register", (req, res) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
           if (err) throw err;
           newUser.password = hash;
-          newUser.save()
+          newUser
+            .save()
             .then(user => res.json(user))
             .catch(err => console.log(err));
         });
       });
     }
+  });
+});
+
+// POST api/users/login
+router.post("/login", (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  User.findOne({ username }).then(username => {
+    // Check username
+    if (!username) {
+      return res.status(404).json({ username: "User not found" });
+    }
+    // Check password
+    bcrypt.compare(password, username.password).then(isMatch => {
+      if (isMatch) {
+        res.json({ message: "Success" });
+      } else {
+        return res.status(400).json({ password: "Password incorrect" });
+      }
+    });
   });
 });
 
