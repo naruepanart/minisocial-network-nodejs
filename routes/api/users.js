@@ -1,19 +1,20 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const bcrypt = require("bcryptjs");
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 // Load User form models
-const User = require("../../models/users.js");
+const User = require('../../models/users.js');
 
 // GET api/users/test
-router.get("/test", (req, res) => res.json({ msg: "Users Works" }));
+router.get('/test', (req, res) => res.json({ msg: 'Users Works' }));
 
 // POST api/users/register
-router.post("/register", (req, res) => {
+router.post('/register', (req, res) => {
   // Check username Unique
   User.findOne({ username: req.body.username }).then(username => {
     if (username) {
-      return res.status(400).json({ username: "Username have already" });
+      return res.status(400).json({ username: 'Username have already' });
     } else {
       const newUser = new User({
         username: req.body.username,
@@ -36,21 +37,21 @@ router.post("/register", (req, res) => {
 });
 
 // POST api/users/login
-router.post("/login", (req, res) => {
+router.post('/login', (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
 
   User.findOne({ username }).then(username => {
     // Check username
     if (!username) {
-      return res.status(404).json({ username: "User not found" });
+      return res.status(404).json({ username: 'User not found' });
     }
     // Check password
     bcrypt.compare(password, username.password).then(isMatch => {
       if (isMatch) {
-        res.json({ message: "Success" });
+        res.json({ message: 'Success' });
       } else {
-        return res.status(400).json({ password: "Password incorrect" });
+        return res.status(400).json({ password: 'Password incorrect' });
       }
     });
   });
