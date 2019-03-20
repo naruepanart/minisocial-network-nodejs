@@ -5,11 +5,16 @@ const bcrypt = require("bcryptjs");
 // Load User form models
 const User = require("../../models/users.js");
 
-// @route   GET api/users/test
+/* ================================================================== */
+
+// GET api/users/test
 router.get("/test", (req, res) => res.json({ msg: "Users Works" }));
 
-// @route   POST api/users/register
+/* ================================================================== */
+
+// POST api/users/register
 router.post("/register", (req, res) => {
+  // Check username Unique
   User.findOne({ username: req.body.username }).then(username => {
     if (username) {
       return res.status(400).json({ username: "Username have already" });
@@ -19,13 +24,12 @@ router.post("/register", (req, res) => {
         password: req.body.password,
         number: req.body.number
       });
-
+      // Encrypt password 10 Rounds
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
           if (err) throw err;
           newUser.password = hash;
-          newUser
-            .save()
+          newUser.save()
             .then(user => res.json(user))
             .catch(err => console.log(err));
         });
