@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 /* ================================================================== */
 
-// Fetch key
+// Fetch genkey
 const keyMongodb = 'mongodb+srv://benzmasters:WLOJ3L4t63MTu3mN@cluster0-pj6ax.mongodb.net/main?retryWrites=true';
 var connectMongodb = process.env.MONGODB_URI || keyMongodb;
 
