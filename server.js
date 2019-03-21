@@ -8,12 +8,17 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.get('/', function (req, res) {
+  res.send('hello world')
+  console.info(`${new Date()}`) 
+})
+
 /* ================================================================== */
 
 // Config API
 const users = require('./routes/api/users');
-const profile = require('./routes/api/profile');
-const posts = require('./routes/api/posts');
+/* const profile = require('./routes/api/profile');
+const posts = require('./routes/api/posts'); */
 
 /* ================================================================== */
 
@@ -40,8 +45,8 @@ require('./config/passport.js')(passport);
 
 // Config Routes
 app.use('/api/users', users);
-app.use('/api/profile', profile);
-app.use('/api/posts', posts);
+/* app.use('/api/profile', profile);
+app.use('/api/posts', posts); */
 
 /* ================================================================== */
 
