@@ -80,12 +80,14 @@ router.post("/login", (req, res) => {
 });
 
 // POST api/users/current
+// Strategy for authenticating 
 router.get('/current', passport.authenticate('jwt', { session: false }),
   (req, res) => {
     res.json({
-      id: username.id,
-      username: username.username,
-      password: username.password
+      id: req.user.id,
+      username: req.user.username,
+      password: req.user.password
+
     });
   }
 );
