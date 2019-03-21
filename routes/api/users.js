@@ -4,6 +4,10 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const passport = require('passport');
 
+// Load Input Validation
+const validateRegisterInput = require('../../validation/register.js');
+const validateLoginInput = require('../../validation/login.js');
+
 // Load secretOrKey form config
 const keys = require('../../config/keys.js');
 
@@ -15,10 +19,18 @@ router.get("/test", (req, res) => res.json({ msg: "Users Works" }));
 
 // POST api/users/register
 router.post("/register", (req, res) => {
+  const { errors, isValid } = validateRegisterInput(req.body);
+  
+  // Check Validation equal false
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   // Check username Unique
   User.findOne({ username: req.body.username }).then(username => {
     if (username) {
-      return res.status(400).json({ username: "Username have already" });
+      errors.username = 'Username already exists';
+      return res.status(400).json(errors);
     } else {
       const newUser = new User({
         username: req.body.username,
@@ -42,13 +54,21 @@ router.post("/register", (req, res) => {
 
 // POST api/users/login
 router.post("/login", (req, res) => {
+  const { errors, isValid } = validateRegisterInput(req.body);
+  
+  // Check Validation equal false
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+  
   const username = req.body.username;
   const password = req.body.password;
 
   User.findOne({ username }).then(username => {
     // Check username
     if (!username) {
-      return res.status(404).json({ username: "User not found" });
+      errors.username = 'User not found';
+      return res.status(404).json(errors);
     }
     // Check password
     bcrypt.compare(password, username.password).then(isMatch => {
@@ -73,7 +93,8 @@ router.post("/login", (req, res) => {
           }
         );
       } else {
-        return res.status(400).json({ password: "Password incorrect" });
+        errors.password = 'Password incorrect';
+        return res.status(400).json(errors);
       }
     });
   });
@@ -86,8 +107,7 @@ router.get('/current', passport.authenticate('jwt', { session: false }),
     res.json({
       id: req.user.id,
       username: req.user.username,
-      password: req.user.password
-
+      number: req.user.number
     });
   }
 );
