@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const passport = require('passport');
 
 // Export secretOrKey 
 const Keys = {
@@ -79,5 +80,10 @@ router.post("/login", (req, res) => {
     });
   });
 });
+
+// POST api/users/current
+router.get('/current', passport.authenticate('jwt',{ session : false}), (req,res) => {
+  res.json({message : 'Success'});
+})
 
 module.exports = router;

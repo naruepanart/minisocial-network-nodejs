@@ -1,11 +1,19 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const passport = require('passport');
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+/* ================================================================== */
+
+// Config API
+const users = require('./routes/api/users');
+const profile = require('./routes/api/profile');
+const posts = require('./routes/api/posts');
 
 /* ================================================================== */
 
@@ -22,12 +30,13 @@ mongoose.connect(connectMongodb, {
 
 /* ================================================================== */
 
-app.get('/', (req, res) => res.send('Hello World'));
+// Passport middleware
+app.use(passport.initialize());
 
-// Config to API
-const users = require('./routes/api/users');
-const profile = require('./routes/api/profile');
-const posts = require('./routes/api/posts');
+// Passport config
+require('./config/passport.js')(passport);
+
+/* ================================================================== */
 
 // Config Routes
 app.use('/api/users', users);
