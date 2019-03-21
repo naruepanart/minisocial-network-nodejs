@@ -4,10 +4,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const passport = require('passport');
 
-// Export secretOrKey 
-const Keys = {
-    secretOrKey : 'secret'
-};
+// Load secretOrKey form config
+const keys = require('../../config/keys.js');
 
 // Load User form models
 const User = require("../../models/users.js");
@@ -65,12 +63,12 @@ router.post("/login", (req, res) => {
         // Sign Token
         jwt.sign(
           payload,
-          Keys.secretOrKey,
+          keys.secretOrKey,
           { expiresIn: 3600 },
           (err, token) => {
             res.json({
               success: true,
-              token: "Bearer" + token
+              token: 'Bearer ' + token
             });
           }
         );
@@ -82,8 +80,14 @@ router.post("/login", (req, res) => {
 });
 
 // POST api/users/current
-router.get('/current', passport.authenticate('jwt',{ session : false}), (req,res) => {
-  res.json({message : 'Success'});
-})
+router.get('/current', passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    res.json({
+      id: username.id,
+      username: username.username,
+      password: username.password
+    });
+  }
+);
 
 module.exports = router;
