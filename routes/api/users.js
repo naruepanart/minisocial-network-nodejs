@@ -27,8 +27,8 @@ router.post("/register", (req, res) => {
   }
 
   // Check username Unique
-  User.findOne({ username: req.body.username }).then(username => {
-    if (username) {
+  User.findOne({ username: req.body.username }).then(user => {
+    if (user) {
       errors.username = 'Username already exists';
       return res.status(400).json(errors);
     } else {
@@ -64,20 +64,20 @@ router.post("/login", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
 
-  User.findOne({ username }).then(username => {
+  User.findOne({ username }).then(user => {
     // Check username
-    if (!username) {
+    if (!user) {
       errors.username = 'User not found';
       return res.status(404).json(errors);
     }
     // Check password
-    bcrypt.compare(password, username.password).then(isMatch => {
+    bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
         // Username isMatched and Create JWT payload
         const payload = {
-          id: username.id,
-          username: username.username,
-          password: username.password
+          id: user.id,
+          username: user.username,
+          password: user.password
         };
 
         // Sign Token
