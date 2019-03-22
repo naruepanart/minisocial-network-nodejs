@@ -1,7 +1,7 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const passport = require('passport');
 
 // Load Input Validation
@@ -12,13 +12,13 @@ const validateLoginInput = require('../../validation/login.js');
 const keys = require('../../config/keys.js');
 
 // Load User form models
-const User = require("../../models/users.js");
+const User = require('../../models/Users.js');
 
 // GET api/users/test
-router.get("/test", (req, res) => res.json({ msg: "Users Works" }));
+router.get('/test', (req, res) => res.json({ msg: 'Users Works' }));
 
 // POST api/users/register
-router.post("/register", (req, res) => {
+router.post('/register', (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
   
   // Check Validation equal false
@@ -52,7 +52,7 @@ router.post("/register", (req, res) => {
 });
 
 // POST api/users/login
-router.post("/login", (req, res) => {
+router.post('/login', (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
   
   // Check Validation equal false
