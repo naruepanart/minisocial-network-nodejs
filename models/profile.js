@@ -11,7 +11,7 @@ const ProfileSchema = new Schema({
         required: true,
         max: 40
     },
-    stunametitle: { type: String, required: true },
+/*     stunametitle: { type: String, required: true },
     stufirstname: { type: String, required: true },
     stulastname: { type: String, required: true },
     stunickname: { type: String, required: true },
@@ -26,7 +26,7 @@ const ProfileSchema = new Schema({
         facebook: {
             type: String
         }
-    },
+    }, */
     update: { type: Date, default: Date.now }
 }, { collection: 'profile' }
 );
