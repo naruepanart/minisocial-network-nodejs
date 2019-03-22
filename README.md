@@ -17,7 +17,7 @@ http://localhost:5000/api/users/register
 # POST เข้าสู่ระบบ
 http://localhost:5000/api/users/login
 
-# GET ยืนยันความถูกต้องจากระบบ
+# GET ยืนยันความถูกต้องจากระบบ login (ถอดรหัสที่ส่งมา)
 http://localhost:5000/api/users/current
 
 # POST บันทึกโปรไฟล์
