@@ -57,20 +57,19 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
     const profileFields = {};
     profileFields.user = req.user.id;
     if (req.body.handle) profileFields.handle = req.body.handle;
-/*     if (req.body.stunametitle) profileFields.stunametitle = req.body.stunametitle;
+    if (req.body.stunametitle) profileFields.stunametitle = req.body.stunametitle;
     if (req.body.stufirstname) profileFields.stufirstname = req.body.stufirstname;
     if (req.body.stulastname) profileFields.stulastname = req.body.stulastname;
     if (req.body.stunickname) profileFields.stunickname = req.body.stunickname;
     if (req.body.stugender) profileFields.stugender = req.body.stugender;
     if (req.body.stuage) profileFields.stuage = req.body.stuage;
-    if (req.body.stutel) profileFields.stutel = req.body.stutel;
-    if (req.body.stutel2) profileFields.stutel2 = req.body.stutel2;
+    if (req.body.stutel1) profileFields.stutel1 = req.body.stutel1;
     if (req.body.stuclassroom) profileFields.stuclassroom = req.body.stuclassroom;
     if (req.body.stunumberinclassroom) profileFields.stunumberinclassroom = req.body.stunumberinclassroom;
 
     // Social
     profileFields.social = {};
-    if (req.body.facebook) profileFields.social.facebook = req.body.facebook; */
+    if (req.body.facebook) profileFields.social.facebook = req.body.facebook;
 
 
 
