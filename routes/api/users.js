@@ -35,7 +35,6 @@ router.post("/register", (req, res) => {
       const newUser = new User({
         username: req.body.username,
         password: req.body.password,
-        number: req.body.number
       });
       // Encrypt password 10 Rounds
       bcrypt.genSalt(10, (err, salt) => {
@@ -107,7 +106,7 @@ router.get('/current', passport.authenticate('jwt', { session: false }),
     res.json({
       id: req.user.id,
       username: req.user.username,
-      number: req.user.number
+      password: req.user.password
     });
   }
 );
