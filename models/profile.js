@@ -11,9 +11,6 @@ const ProfileSchema = new Schema({
         required: true,
         max: 40
     },
-    stunametitle: { type: String, required: true },
-    stufirstname: { type: String, required: true },
-    stulastname: { type: String, required: true },
     stunickname: { type: String, required: true },
     stugender: { type: String, required: true },
     stuage: { type: Number, required: true },
