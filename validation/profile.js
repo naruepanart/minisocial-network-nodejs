@@ -5,9 +5,6 @@ module.exports = function validateProfileInput(data) {
     let errors = {};
 
     data.handle = !isEmpty(data.handle) ? data.handle : '';
-    data.stunametitle = !isEmpty(data.stunametitle) ? data.stunametitle : '';
-    data.stufirstname = !isEmpty(data.stufirstname) ? data.stufirstname : '';
-    data.stulastname = !isEmpty(data.stulastname) ? data.stulastname : '';
     data.stunickname = !isEmpty(data.stunickname) ? data.stunickname : '';
     data.stugender = !isEmpty(data.stugender) ? data.stugender : '';
     data.stuage = !isEmpty(data.stuage) ? data.stuage : '';
@@ -20,15 +17,6 @@ module.exports = function validateProfileInput(data) {
     }
     if (Validator.isEmpty(data.handle)) {
         errors.handle = 'Profile handle is required';
-    }
-    if (Validator.isEmpty(data.stunametitle)) {
-        errors.stunametitle = 'Nametitle field is required';
-    }
-    if (Validator.isEmpty(data.stufirstname)) {
-        errors.stufirstname = 'Firstname field is required';
-    }
-    if (Validator.isEmpty(data.stulastname)) {
-        errors.stulastname = 'Lastname field is required';
     }
     if (Validator.isEmpty(data.stunickname)) {
         errors.stunickname = 'Nickname field is required';
