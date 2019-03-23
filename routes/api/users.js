@@ -35,6 +35,8 @@ router.post('/register', (req, res) => {
       const newUser = new User({
         username: req.body.username,
         password: req.body.password,
+        stufirstname: req.body.stufirstname,
+        stulastname: req.body.stulastname,
       });
       // Encrypt password 10 Rounds
       bcrypt.genSalt(10, (err, salt) => {
@@ -53,7 +55,7 @@ router.post('/register', (req, res) => {
 
 // POST api/users/login
 router.post('/login', (req, res) => {
-  const { errors, isValid } = validateRegisterInput(req.body);
+  const { errors, isValid } = validateLoginInput(req.body);
   
   // Check Validation equal false
   if (!isValid) {
