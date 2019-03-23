@@ -23,6 +23,9 @@ http://localhost:5000/api/users/current
 # POST บันทึกโปรไฟล์
 http://localhost:5000/api/profile
 
+# GET ข้อมูลโปรไฟล์
+http://localhost:5000/api/profile
+
 ```
 
 
