@@ -30,6 +30,7 @@ router.get('/', passport.authenticate('jwt', { session: false }),
         const errors = {};
 
         Profile.findOne({ user: req.user.id })
+        .populate('user', ['stufirstname','stulastname'])
             .then(profile => {
                 if (!profile) {
                     errors.noprofile = 'There is no profile for this user';
@@ -60,9 +61,6 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
     profileFields.user = req.user.id;
 
     if (req.body.handle) profileFields.handle = req.body.handle;
-    if (req.body.stunametitle) profileFields.stunametitle = req.body.stunametitle;
-    if (req.body.stufirstname) profileFields.stufirstname = req.body.stufirstname;
-    if (req.body.stulastname) profileFields.stulastname = req.body.stulastname;
     if (req.body.stunickname) profileFields.stunickname = req.body.stunickname;
     if (req.body.stugender) profileFields.stugender = req.body.stugender;
     if (req.body.stuage) profileFields.stuage = req.body.stuage;
@@ -72,6 +70,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 
     // Social
     if (req.body.facebook) profileFields.facebook = req.body.facebook;
+   
     /* profileFields.social = {};
     if (req.body.facebook) profileFields.social.facebook = req.body.facebook; */
 
