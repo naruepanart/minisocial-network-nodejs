@@ -48,11 +48,11 @@ module.exports = function validateProfileInput(data) {
     if (Validator.isEmpty(data.stunumberinclassroom)) {
         errors.stunumberinclassroom = 'Numberinclassroom field is required';
     }
-    if (!isEmpty(data.facebook)) {
+    /* if (!isEmpty(data.facebook)) {
         if (!Validator.isURL(data.facebook)) {
             errors.facebook = 'Facebook not a valid URL';
         }
-    }
+    } */
 
     return {
         errors,

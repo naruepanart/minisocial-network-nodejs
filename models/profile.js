@@ -17,16 +17,17 @@ const ProfileSchema = new Schema({
     stunickname: { type: String, required: true },
     stugender: { type: String, required: true },
     stuage: { type: Number, required: true },
-    stutel1: { type: Number, required: true },
-    stutel2: { type: Number },
+    stutel1: { type: String, required: true },
+    stutel2: { type: String },
     stuclassroom: { type: String, required: true },
     stunumberinclassroom: { type: Number, required: true },
+    facebook: { type: String },
 
-    social: {
+    /* social: {
         facebook: {
             type: String
         }
-    },
+    }, */
     update: { type: Date, default: Date.now }
 }, { collection: 'profile' }
 );

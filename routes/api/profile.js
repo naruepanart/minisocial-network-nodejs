@@ -55,7 +55,10 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 
     // Get fields
     const profileFields = {};
+
+    // If you do not want to send the user to delete line below
     profileFields.user = req.user.id;
+
     if (req.body.handle) profileFields.handle = req.body.handle;
     if (req.body.stunametitle) profileFields.stunametitle = req.body.stunametitle;
     if (req.body.stufirstname) profileFields.stufirstname = req.body.stufirstname;
@@ -68,11 +71,11 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
     if (req.body.stunumberinclassroom) profileFields.stunumberinclassroom = req.body.stunumberinclassroom;
 
     // Social
-    profileFields.social = {};
-    if (req.body.facebook) profileFields.social.facebook = req.body.facebook;
+    if (req.body.facebook) profileFields.facebook = req.body.facebook;
+    /* profileFields.social = {};
+    if (req.body.facebook) profileFields.social.facebook = req.body.facebook; */
 
-
-
+    // If the user sends the data again, it will update the data
     Profile.findOne({ user: req.user.id }).then(profile => {
         if (profile) {
             // Update
@@ -82,9 +85,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
                 { new: true }
             ).then(profile => res.json(profile));
         } else {
-            // Create
-
-            // Check if handle exists
+            // Create and Check if handle repeat 
             Profile.findOne({ handle: profileFields.handle }).then(profile => {
                 if (profile) {
                     errors.handle = 'That handle already exists';
