@@ -30,17 +30,61 @@ router.get('/', passport.authenticate('jwt', { session: false }),
         const errors = {};
 
         Profile.findOne({ user: req.user.id })
-        .populate('user', ['stufirstname','stulastname'])
+            // Show detail of user is firstname,lastname
+            .populate('user', ['stufirstname', 'stulastname'])
             .then(profile => {
                 if (!profile) {
                     errors.noprofile = 'There is no profile for this user';
-                    return res.stuage(404).json(errors);
+                    return res.status(404).json(errors);
                 }
                 res.json(profile);
             })
-            .catch(err => res.stuage(404).json(err));
+            .catch(err => res.status(404).json(err));
     }
 );
+
+// @route   GET api/profile/handle/:handle
+// @desc    Get profile by handle
+// @access  Public
+router.get('/handle/:handle', (req, res) => {
+    const errors = {};
+
+    Profile.findOne({ handle: req.params.handle })
+        // Show detail of user is firstname,lastname
+        .populate('user', ['stufirstname', 'stulastname'])
+        .then(profile => {
+            if (!profile) {
+                errors.noprofile = 'There is no profile for this user';
+                res.status(404).json(errors);
+            }
+
+            res.json(profile);
+        })
+        .catch(err => res.status(404).json(err));
+});
+
+// @route   GET api/profile/user/:user_id
+// @desc    Get profile by user ID
+// @access  Public
+
+router.get('/user/:user_id', (req, res) => {
+    const errors = {};
+
+    Profile.findOne({ user: req.params.user_id })
+        // Show detail of user is firstname,lastname
+        .populate('user', ['stufirstname', 'stulastname'])
+        .then(profile => {
+            if (!profile) {
+                errors.noprofile = 'There is no profile for this user';
+                res.status(404).json(errors);
+            }
+
+            res.json(profile);
+        })
+        .catch(err =>
+            res.status(404).json({ profile: 'There is no profile for this user' })
+        );
+});
 
 // @route   POST api/profile
 // @desc    Create or Edit users profile
@@ -70,7 +114,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 
     // Social
     if (req.body.facebook) profileFields.facebook = req.body.facebook;
-   
+
     /* profileFields.social = {};
     if (req.body.facebook) profileFields.social.facebook = req.body.facebook; */
 
