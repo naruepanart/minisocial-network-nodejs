@@ -38,6 +38,18 @@ http://localhost:5000/api/profile/user/:id
 # Get Data profile All user
 http://localhost:5000/api/profile/all
 
+# POST posts
+http://localhost:5000/api/posts
+
+# Get posts
+http://localhost:5000/api/posts
+
+# Likes Posts
+http://localhost:5000/api/posts/like/:id
+
+# Unlikes Posts
+http://localhost:5000/api/posts/unlike/:id
+
 ```
 
 
