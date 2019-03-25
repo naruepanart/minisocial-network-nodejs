@@ -48,20 +48,20 @@ router.get('/', passport.authenticate('jwt', { session: false }),
 // @access  Public
 router.get('/all', (req, res) => {
     const errors = {};
-  
+
     Profile.find()
-      // Show detail of user is firstname,lastname
-      .populate('user', ['stufirstname', 'stulastname'])
-      .then(profiles => {
-        if (!profiles) {
-          errors.noprofile = 'There are no profiles';
-          return res.status(404).json(errors);
-        }
-  
-        res.json(profiles);
-      })
-      .catch(err => res.status(404).json({ profile: 'There are no profiles' }));
-  });
+        // Show detail of user is firstname,lastname
+        .populate('user', ['stufirstname', 'stulastname'])
+        .then(profiles => {
+            if (!profiles) {
+                errors.noprofile = 'There are no profiles';
+                return res.status(404).json(errors);
+            }
+
+            res.json(profiles);
+        })
+        .catch(err => res.status(404).json({ profile: 'There are no profiles' }));
+});
 
 // @route   GET api/profile/handle/:handle
 // @desc    Get profile by handle
@@ -163,5 +163,22 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
         }
     });
 }
+);
+
+// @route   DELETE api/profile
+// @desc    Delete user and profile
+// @access  Private
+router.delete(
+    '/',
+    passport.authenticate('jwt', { session: false }),
+    (req, res) => {
+        // Delete Profile
+        Profile.findOneAndRemove({ user: req.user.id }).then(() => {
+            // Delete User
+            User.findOneAndRemove({ _id: req.user.id }).then(() =>
+                res.json({ success: true })
+            );
+        });
+    }
 );
 module.exports = router;
