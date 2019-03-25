@@ -168,9 +168,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 // @route   DELETE api/profile
 // @desc    Delete user and profile
 // @access  Private
-router.delete(
-    '/',
-    passport.authenticate('jwt', { session: false }),
+router.delete('/', passport.authenticate('jwt', { session: false }),
     (req, res) => {
         // Delete Profile
         Profile.findOneAndRemove({ user: req.user.id }).then(() => {
@@ -181,4 +179,5 @@ router.delete(
         });
     }
 );
+
 module.exports = router;
