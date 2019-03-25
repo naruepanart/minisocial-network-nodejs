@@ -26,6 +26,9 @@ http://localhost:5000/api/profile
 # GET Data profile by token
 http://localhost:5000/api/profile
 
+# Delete User and profile by token
+http://localhost:5000/api/profile
+
 # Get Data profile by handle(PK)
 http://localhost:5000/api/profile/handle/:handle
 
