@@ -43,6 +43,26 @@ router.get('/', passport.authenticate('jwt', { session: false }),
     }
 );
 
+// @route   GET api/profile/all
+// @desc    Get all profiles
+// @access  Public
+router.get('/all', (req, res) => {
+    const errors = {};
+  
+    Profile.find()
+      // Show detail of user is firstname,lastname
+      .populate('user', ['stufirstname', 'stulastname'])
+      .then(profiles => {
+        if (!profiles) {
+          errors.noprofile = 'There are no profiles';
+          return res.status(404).json(errors);
+        }
+  
+        res.json(profiles);
+      })
+      .catch(err => res.status(404).json({ profile: 'There are no profiles' }));
+  });
+
 // @route   GET api/profile/handle/:handle
 // @desc    Get profile by handle
 // @access  Public
@@ -104,15 +124,17 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
     // If you do not want to send the user to delete line below
     profileFields.user = req.user.id;
 
+    // Send schema information
     if (req.body.handle) profileFields.handle = req.body.handle;
     if (req.body.stunickname) profileFields.stunickname = req.body.stunickname;
     if (req.body.stugender) profileFields.stugender = req.body.stugender;
     if (req.body.stuage) profileFields.stuage = req.body.stuage;
     if (req.body.stutel1) profileFields.stutel1 = req.body.stutel1;
+    if (req.body.stutel2) profileFields.stutel2 = req.body.stutel2;
     if (req.body.stuclassroom) profileFields.stuclassroom = req.body.stuclassroom;
     if (req.body.stunumberinclassroom) profileFields.stunumberinclassroom = req.body.stunumberinclassroom;
 
-    // Social
+    // Social networks
     if (req.body.facebook) profileFields.facebook = req.body.facebook;
 
     /* profileFields.social = {};
