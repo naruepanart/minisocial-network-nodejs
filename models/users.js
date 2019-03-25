@@ -6,7 +6,6 @@ const UserSchema = new Schema({
   password: { type: String, required: true },
   stufirstname: { type: String, required: true },
   stulastname: { type: String, required: true },
-  
   update: { type: Date, default: Date.now }
 }, { collection: 'users' }
 );
