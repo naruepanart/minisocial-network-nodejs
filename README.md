@@ -11,31 +11,31 @@ npm run server
 ```bash
 # API
 
-# POST Register
+# POST register
 http://localhost:5000/api/users/register
 
-# POST Login
+# POST login
 http://localhost:5000/api/users/login
 
-# GET Decode data from login by token 
+# GET decode data from login by token 
 http://localhost:5000/api/users/current
 
-# POST Save profile by token
+# POST save profile by token
 http://localhost:5000/api/profile
 
-# GET Data profile by token
+# GET data profile by token
 http://localhost:5000/api/profile
 
-# Delete User and profile by token
+# Delete user and profile by token
 http://localhost:5000/api/profile
 
-# Get Data profile by handle(PK)
+# Get data profile by handle(PK)
 http://localhost:5000/api/profile/handle/:handle
 
-# Get Data profile by ID of user
+# Get data profile by ID of user
 http://localhost:5000/api/profile/user/:id
 
-# Get Data profile All user
+# Get data profile All user
 http://localhost:5000/api/profile/all
 
 # POST posts
@@ -44,11 +44,17 @@ http://localhost:5000/api/posts
 # Get posts
 http://localhost:5000/api/posts
 
-# Likes Posts
+# Likes posts
 http://localhost:5000/api/posts/like/:id
 
-# Unlikes Posts
+# Unlikes posts
 http://localhost:5000/api/posts/unlike/:id
+
+# Comment posts
+http://localhost:5000/api/posts/comment/5c98db05fc90051558a30e50
+
+# Delete comment
+http://localhost:5000/api/posts/comment/:id/:comment_id
 
 ```
 
