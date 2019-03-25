@@ -9,7 +9,7 @@ const ProfileSchema = new Schema({
     handle: {
         type: String,
         required: true,
-        max: 20
+        max: 10
     },
     stunickname: { type: String, required: true },
     stugender: { type: String, required: true },
@@ -26,6 +26,7 @@ const ProfileSchema = new Schema({
         }
     }, */
     update: { type: Date, default: Date.now }
+    
 }, { collection: 'profile' }
 );
 
