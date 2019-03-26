@@ -7,7 +7,6 @@ const UserSchema = new Schema({
   stufirstname: { type: String, required: true },
   stulastname: { type: String, required: true },
   update: { type: Date, default: Date.now }
-  
 }, { collection: 'users' }
 );
 

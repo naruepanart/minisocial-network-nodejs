@@ -25,8 +25,8 @@ const ProfileSchema = new Schema({
             type: String
         }
     }, */
-    update: { type: Date, default: Date.now }
     
+    update: { type: Date, default: Date.now }
 }, { collection: 'profile' }
 );
 
