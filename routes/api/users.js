@@ -17,6 +17,24 @@ const User = require('../../models/Users.js');
 // GET api/users/test
 router.get('/test', (req, res) => res.json({ msg: 'Users Works' }));
 
+// GET api/users/usersall
+router.get('/usersall', (req, res) => {
+  const errors = {};
+
+  User.find()
+      // Show detail of user is firstname,lastname
+
+      .then(user => {
+          if (!user) {
+              errors.nouser= 'There are no user';
+              return res.status(404).json(errors);
+          }
+
+          res.json(user);
+      })
+      .catch(err => res.status(404).json({ user: 'There are no user' }));
+});
+
 // POST api/users/register
 router.post('/register', (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
