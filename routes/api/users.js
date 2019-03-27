@@ -17,11 +17,10 @@ const User = require('../../models/Users.js');
 // GET api/users/test
 router.get('/test', (req, res) => res.json({ msg: 'Users Works' }));
 
-
 // POST api/users/register
-router.post('/register', (req, res, next) => {
+router.post('/register', (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
-
+  
   // Check Validation equal false
   if (!isValid) {
     return res.status(400).json(errors);
@@ -44,13 +43,10 @@ router.post('/register', (req, res, next) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
           if (err) throw err;
           newUser.password = hash;
-          newUser.save(function (err) {
-            if (err) {
-              console.log(err);
-            } else {
-              res.status(201).send('Post success');
-            }
-          })
+          newUser
+            .save()
+            .then(user => res.json(user))
+            .catch(err => console.log(err));
         });
       });
     }
@@ -60,12 +56,12 @@ router.post('/register', (req, res, next) => {
 // POST api/users/login
 router.post('/login', (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
-
+  
   // Check Validation equal false
   if (!isValid) {
     return res.status(400).json(errors);
   }
-
+  
   const username = req.body.username;
   const password = req.body.password;
 
