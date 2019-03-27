@@ -25,7 +25,8 @@ app.use('/api/profile', profile);
 app.use('/api/posts', posts);
 
 // Fetch genkey
-const keyMongodb = 'mongodb+srv://benzmasters:WLOJ3L4t63MTu3mN@cluster0-pj6ax.mongodb.net/main?retryWrites=true';
+const keyMongodb = 'mongodb+srv://benzmasters:2tH4i1Pyq2qCOrId@cluster0-pj6ax.mongodb.net/test?retryWrites=true'; 
+
 var connectMongodb = process.env.MONGODB_URI || keyMongodb;
 
 // Connect MongoDB

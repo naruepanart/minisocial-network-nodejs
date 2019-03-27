@@ -19,13 +19,13 @@ router.get('/test', (req, res) => res.json({ msg: 'Users Works' }));
 
 // POST api/users/register
 router.post('/register', (req, res) => {
- /*  const { errors, isValid } = validateRegisterInput(req.body);
-  
-  // Check Validation equal false
-  if (!isValid) {
-    return res.status(400).json(errors);
-  }
- */
+  /*  const { errors, isValid } = validateRegisterInput(req.body);
+   
+   // Check Validation equal false
+   if (!isValid) {
+     return res.status(400).json(errors);
+   }
+  */
   // Check username Unique
   User.findOne({ username: req.body.username }).then(user => {
     if (user) {
@@ -43,10 +43,13 @@ router.post('/register', (req, res) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
           if (err) throw err;
           newUser.password = hash;
-          newUser
-            .save()
-            .then(user => res.json(user))
-            .catch(err => console.log(err));
+          newUser.save(function (err) {
+            if (err) {
+              console.log(err);
+            } else {
+              res.status(201).send('Post success');
+            }
+          })
         });
       });
     }
@@ -56,12 +59,12 @@ router.post('/register', (req, res) => {
 // POST api/users/login
 router.post('/login', (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
-  
+
   // Check Validation equal false
   if (!isValid) {
     return res.status(400).json(errors);
   }
-  
+
   const username = req.body.username;
   const password = req.body.password;
 
