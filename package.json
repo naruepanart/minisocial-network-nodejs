@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
+    "preinstall": "npm install pm2 -g",
+    "start": "pm2-runtime server.js -i max",
     "server": "nodemon server.js"
   },
   "repository": {
