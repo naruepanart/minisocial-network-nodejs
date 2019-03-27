@@ -37,12 +37,12 @@ router.get('/usersall', (req, res) => {
 
 // POST api/users/register
 router.post('/register', (req, res) => {
-  const { errors, isValid } = validateRegisterInput(req.body);
+ /*  const { errors, isValid } = validateRegisterInput(req.body);
   
   // Check Validation equal false
   if (!isValid) {
     return res.status(400).json(errors);
-  }
+  } */
 
   // Check username Unique
   User.findOne({ username: req.body.username }).then(user => {
