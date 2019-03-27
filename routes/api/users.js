@@ -17,8 +17,8 @@ const User = require('../../models/Users.js');
 // GET api/users/test
 router.get('/test', (req, res) => res.json({ msg: 'Users Works' }));
 
-// GET api/users/usersall
-router.get('/usersall', (req, res) => {
+// GET api/users/registerall
+router.get('/registerall', (req, res) => {
   const errors = {};
 
   User.find()
