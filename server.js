@@ -8,11 +8,10 @@ const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', function (req, res) {
-  res.send('hello world')
-  console.info(`${new Date()}`)
+  res.send('Hello world')
 })
 
 // Config API
