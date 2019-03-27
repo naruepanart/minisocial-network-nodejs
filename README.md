@@ -11,6 +11,9 @@ npm run server
 ```bash
 # API
 
+# Server
+https://backend-minisocial-network.herokuapp.com
+
 # POST register
 http://localhost:5000/api/users/register
 
