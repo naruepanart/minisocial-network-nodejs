@@ -14,6 +14,9 @@ npm run server
 # Server
 https://backend-minisocial-network.herokuapp.com
 
+# GET register
+http://localhost:5000/api/users/registerall
+
 # POST register
 http://localhost:5000/api/users/register
 
