@@ -1,4 +1,4 @@
-# backend-social
+# minisocial-network-nodejs
 
 ```bash
 # Install
